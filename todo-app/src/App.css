@@ -75,3 +75,48 @@ h1{
 .active{
   background-color: rgb(0, 175, 157);
 }
+
+.todo-list{
+  display: flex;
+  flex-direction: column;
+}
+.btn-area{
+  margin-bottom: 15px;
+}
+.todo-list-item{
+  background-color: #414040;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 3px 5px rgb(43, 42, 42);
+}
+.todo-list-item h3{
+  font-size: 25px;
+  color: rgb(0, 175, 157);
+  font-weight: bold;
+  margin: 0;
+} 
+.todo-list-item p{
+  font-size: 14px;
+  color: rgb(161, 161, 161);
+}
+.icon{
+  font-size: 35px;
+  cursor: pointer;
+}
+.icon:hover{
+  color: red;
+}
+.check-icon{
+  font-size: 35px;
+  margin-left: 10px;
+  color: rgb(0, 175, 157);
+  cursor: pointer;
+}
+.check-icon:hover{
+  color: rgb(0, 130, 117);
+}
