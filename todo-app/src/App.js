@@ -1,7 +1,10 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import { AiOutlineDelete } from "react-icons/ai";
+import { BsCheckLg } from "react-icons/bs";
 
 function App() {
+  const [isCompleteScreen, setIscompleteScreen] = useState(false);
   return (
     <div className="App">
       <h1>My ToDo</h1>
@@ -26,18 +29,21 @@ function App() {
         </div>
 
         <div className="btn-area">
-          <button>Todo</button>
-          <button>Completed</button>
+          <button className={`secondaryBtn isCompleteScreen ${isCompleteScreen === false && 'active'}`} onClick={()=>setIscompleteScreen(false)}>Todo</button>
+          <button className={`secondaryBtn isCompleteScreen ${isCompleteScreen === true && 'active'}`}onClick={()=>setIscompleteScreen(true)}>Completed</button>
         </div>
-        
+
         <div className="todo-list">
           <div className="todo-list-item">
           <div>
-            <h1>Task 1</h1>
+            <h3>Task 1</h3>
             <p>Description</p>
           </div>
+          <div>
+            <AiOutlineDelete className='icon'/>
+            <BsCheckLg className='check-icon'/>
           </div>
-
+          </div>
         </div>
       </div>
     </div>
