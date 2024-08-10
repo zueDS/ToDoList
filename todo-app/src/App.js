@@ -48,6 +48,7 @@ function App() {
     let updatedCompletedArr =[...completedTodos];
     updatedCompletedArr.push(filteredItem);
     setCompletedTodos(updatedCompletedArr);
+    handleDeleteTodo(index);
   }
 
   useEffect(()=>{
