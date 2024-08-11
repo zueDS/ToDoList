@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import { BsCheckLg } from "react-icons/bs";
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
   const [newTitle, setnewTitle] = useState("");
   const [newDescription, setnewDescription] = useState("");
   const [completedTodos, setCompletedTodos] = useState([]);
+  const [currentEdit, setCurrentEdit] = useState('');
+  const [currentEditedItem, setCurrentEditedItem] = useState("");
 
   const handleAddTodo = ()=>{
     let newTodoItem = {
@@ -73,6 +75,31 @@ function App() {
     }
   },[]);
 
+  const handleEdit = (ind,item)=>{
+    console.log(ind);
+    setCurrentEdit(ind);
+    setCurrentEditedItem(item);
+  }
+
+  const handleUpdateTitle = (value)=>{
+    setCurrentEditedItem((prev)=>{
+      return{...prev,title:value}
+    })
+  }
+
+  const handleUpdateDescription = (value)=>{
+    setCurrentEditedItem((prev)=>{
+      return{...prev,description:value}
+    })
+  }
+
+  const handleUpdateTodo = ()=>{
+    let prevToDo = [...allTodos];
+    prevToDo[currentEdit] = currentEditedItem;
+    setTodos(prevToDo);
+    setCurrentEdit("");
+  }
+
   return (
     <div className="App">
       <h1>My ToDo</h1>
@@ -106,18 +133,39 @@ function App() {
         <div className="todo-list">
          
          {isCompleteScreen===false && allTodos.map((item, index) => {
-            return(
-              <div className="todo-list-item" key={index}>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                  </div>
-                <div>
-                  <AiOutlineDelete className='icon' onClick={()=>handleDeleteTodo(index)} title = "Delete!?" /> 
-                  <BsCheckLg className='check-icon' onClick={()=>handleComplete(index)} title = "Complete!?" />
-                </div>
+            if(currentEdit===index){
+              return(
+                <div className='edit_wrapper' key={index}>
+                <input placeholder='Updated Title' 
+                onChange={(e)=> handleUpdateTitle(e.target.value)}
+                 value={currentEditedItem.title}></input>
+
+                <textarea placeholder='Updated Title' 
+                rows={4}
+                onChange={(e)=> handleUpdateDescription(e.target.value)}
+                 value={currentEditedItem.description}></textarea>
+
+                 <button type="button" 
+                 onClick={handleUpdateTodo} 
+                 className="primaryBtn">Update</button>
               </div>
-            );
+              )
+            }else{
+              return(
+                <div className="todo-list-item" key={index}>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.description}</p>
+                    </div>
+                  <div>
+                    <AiOutlineDelete className='icon' onClick={()=>handleDeleteTodo(index)} title = "Delete!?" /> 
+                    <BsCheckLg className='check-icon' onClick={()=>handleComplete(index)} title = "Complete!?" />
+                    <AiOutlineEdit className='edit' onClick={()=>handleEdit(index,item)} title = "Edit!?"/>
+                  </div>
+                </div>
+              );
+            }
+            
           })}
 
           {isCompleteScreen===true && completedTodos.map((item, index) => {
