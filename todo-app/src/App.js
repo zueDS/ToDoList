@@ -82,11 +82,22 @@ function App() {
   }
 
   const handleUpdateTitle = (value)=>{
-
+    setCurrentEditedItem((prev)=>{
+      return{...prev,title:value}
+    })
   }
 
   const handleUpdateDescription = (value)=>{
-    
+    setCurrentEditedItem((prev)=>{
+      return{...prev,description:value}
+    })
+  }
+
+  const handleUpdateTodo = ()=>{
+    let prevToDo = [...allTodos];
+    prevToDo[currentEdit] = currentEditedItem;
+    setTodos(prevToDo);
+    setCurrentEdit("");
   }
 
   return (
@@ -123,15 +134,22 @@ function App() {
          
          {isCompleteScreen===false && allTodos.map((item, index) => {
             if(currentEdit===index){
-              <div className='edit_wrapper'>
+              return(
+                <div className='edit_wrapper' key={index}>
                 <input placeholder='Updated Title' 
                 onChange={(e)=> handleUpdateTitle(e.target.value)}
                  value={currentEditedItem.title}></input>
 
                 <textarea placeholder='Updated Title' 
+                rows={4}
                 onChange={(e)=> handleUpdateDescription(e.target.value)}
                  value={currentEditedItem.description}></textarea>
+
+                 <button type="button" 
+                 onClick={handleUpdateTodo} 
+                 className="primaryBtn">Update</button>
               </div>
+              )
             }else{
               return(
                 <div className="todo-list-item" key={index}>
