@@ -120,6 +120,15 @@ h1{
 .check-icon:hover{
   color: rgb(0, 130, 117);
 }
+.edit{
+  font-size: 35px;
+  margin-left: 10px;
+  color: rgb(0, 175, 157);
+  cursor: pointer;
+}
+.edit:hover{
+  color: rgb(0, 130, 117);
+}
 
 .edit_wrapper{
   background-color: #414040;
@@ -127,6 +136,7 @@ h1{
   display: flex;
   flex-direction: column;
 }
+
 .edit_wrapper input,.edit_wrapper textarea{
   border: 1px solid lightgray;
   padding: 10px;
